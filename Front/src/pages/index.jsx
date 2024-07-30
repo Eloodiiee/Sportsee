@@ -22,12 +22,12 @@ class Accueil extends Component {
     async fetchData(id) {
         this.setState({ loading: true, error: null })
         try {
-            //relis a mon MockedService
+            //relie a mon MockedService
             const service = new MockedService()
             const response = await service.getData(id.toString(), "default")
             if (response && response.userInfos) {
                 this.setState({ user: response, loading: false })
-                console.log("Fetched data:", response)
+                console.log("Données fetch:", response)
             } else {
                 throw new Error("Format de données invalide")
             }
