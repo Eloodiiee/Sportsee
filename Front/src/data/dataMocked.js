@@ -21,7 +21,7 @@ export const USER_MAIN_DATA = [
             lastName: "Reid",
             age: 24,
         },
-        todayScore: 0.2,
+        todayScore: 0.12,
         keyData: {
             calorieCount: 1950,
             proteinCount: 150,
@@ -187,13 +187,14 @@ export const USER_PERFORMANCE = [
     {
         userId: 32,
         kind: {
-            1: "Cardio",
-            2: "Energie",
-            3: "Endurance",
-            4: "Force",
-            5: "Vitesse",
-            6: "Intensité",
+            1: "cardio",
+            2: "energy",
+            3: "endurance",
+            4: "strength",
+            5: "speed",
+            6: "intensity",
         },
+
         data: [
             {
                 value: 110,
@@ -224,13 +225,14 @@ export const USER_PERFORMANCE = [
     {
         userId: 7,
         kind: {
-            1: "Cardio",
-            2: "Energie",
-            3: "Endurance",
-            4: "Force",
-            5: "Vitesse",
-            6: "Intensité",
+            1: "cardio",
+            2: "energy",
+            3: "endurance",
+            4: "strength",
+            5: "speed",
+            6: "intensity",
         },
+
         data: [
             {
                 value: 120,

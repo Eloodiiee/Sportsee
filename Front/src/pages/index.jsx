@@ -2,7 +2,8 @@ import { Component } from "react"
 import MockedService from "../assets/services/MockedServices"
 import LineStats from "../assets/components/charts/lineChart"
 import RadarStats from "../assets/components/charts/RadarChart"
-
+import RadialBarStats from "../assets/components/charts/RadialBarChart"
+import ScoresStats from "../assets/components/charts/ScoresChart"
 // constructor de l'accueil qui fetch sans useState ou useEffect
 class Accueil extends Component {
     constructor(props) {
@@ -50,12 +51,17 @@ class Accueil extends Component {
                             </h1>
                             <div className="chartContainer">
                                 <div className="activityChart"></div>
-                                <div className="userScores"></div>
+                                <div className="userScores">
+                                    <ScoresStats id={user.id} />
+                                </div>
                                 <div className="userChart" id="lineChart">
                                     <LineStats id={user.id} />
                                 </div>
                                 <div className="userChart" id="radarChart">
                                     <RadarStats id={user.id} />
+                                </div>
+                                <div className="userChart" id="radialBarChart">
+                                    <RadialBarStats id={user.id} />
                                 </div>
                             </div>
                         </div>

@@ -8,20 +8,13 @@ const Header = () => {
         <header>
             <img src={logoSportsee} alt="logo Sportsee" />
             <nav>
-                <ul>
-                    <li>
-                        <NavLink to="/">Accueil</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/profile">Profil</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/settings">Réglage</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/community">Communauté</NavLink>
-                    </li>
-                </ul>
+                <NavLink to="/">Accueil</NavLink>
+
+                <NavLink to="/profile">Profil</NavLink>
+
+                <NavLink to="/settings">Réglage</NavLink>
+
+                <NavLink to="/community">Communauté</NavLink>
             </nav>
         </header>
     )

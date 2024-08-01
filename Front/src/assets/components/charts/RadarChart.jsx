@@ -5,8 +5,6 @@ import { useState, useEffect } from "react"
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer } from "recharts"
 import MockedService from "../../services/MockedServices"
 
-//const kind = ["Cardio", "Energie", "Endurance", "Force", "Vitesse", "Intensité"]
-
 function RadarStats({ id }) {
     const [data, setData] = useState({})
     const [isLoading, setIsLoading] = useState(true)
@@ -40,7 +38,7 @@ function RadarStats({ id }) {
     //Permet de ranger dans l'ordre les catégories des performances (cardio...)
     let processedData = {}
     if (!isLoading) {
-        const kind = Object.values(data.kind)
+        const kind = ["Cardio", "Energie", "Endurance", "Force", "Vitesse", "Intensité"]
         processedData = data.data.map((item, index) => ({ ...item, kind: kind[index] }))
         processedData = processedData.reverse() // Remet dans l'ordre par rapport a la maquette sinon cest inversé
     }

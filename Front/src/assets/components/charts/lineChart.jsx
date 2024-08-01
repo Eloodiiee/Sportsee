@@ -45,7 +45,7 @@ function LineStats({ id }) {
                 <Fragment>
                     <p>Durée moyenne des sessions</p>
                     <ResponsiveContainer width="100%" height="100%">
-                        <LineChart width={258} height={263} data={data.sessions}>
+                        <LineChart className="custom-line-chart" width={258} height={263} data={data.sessions}>
                             <XAxis dataKey="day" stroke="#FFFFFF" axisLine={false} tickLine={false} />
                             <Line type="basis" dataKey="sessionLength" stroke="#FFFFFF" strokeWidth="2" dot={false} />
                         </LineChart>
