@@ -72,5 +72,5 @@ class Accueil extends Component {
         )
     }
 }
-/* ;<div className="chart">Performances</div> */
+
 export default Accueil
