@@ -4,6 +4,7 @@ import LineStats from "../assets/components/charts/lineChart"
 import RadarStats from "../assets/components/charts/RadarChart"
 import RadialBarStats from "../assets/components/charts/RadialBarChart"
 import ScoresStats from "../assets/components/charts/ScoresChart"
+
 // constructor de l'accueil qui fetch sans useState ou useEffect
 class Accueil extends Component {
     constructor(props) {

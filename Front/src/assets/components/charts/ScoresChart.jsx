@@ -8,6 +8,8 @@ import calories from "../../images/calories.png"
 import proteines from "../../images/Proteines.png"
 import glucides from "../../images/Glucides.png"
 import lipides from "../../images/Lipides.png"
+
+/** Permet d'afficher les scores de l'utilisateur tel que ( calories, lipides, proteines...**/
 function ScoresStats({ id }) {
     const [data, setData] = useState({})
     const [isLoading, setIsLoading] = useState(true)
@@ -16,6 +18,8 @@ function ScoresStats({ id }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                // Fetch avec lequel je recupere les données liées à l'utilisateur
+                //relié a mon MockedService
                 const service = new MockedService()
                 const response = await service.getData(id.toString(), "")
 
