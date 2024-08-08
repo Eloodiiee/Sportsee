@@ -55,7 +55,7 @@ function RadialBarStats({ id }) {
                     {/* Rends le container du graphique responsive */}
                     <ResponsiveContainer width="100%" height="100%">
                         {/* Détermine les propriétés du graphique tel que sa position, la largeur du trait et son point de depart.. */}
-                        <RadialBarChart cx="50%" cy="50%" innerRadius="80%" outerRadius="100%" barSize={10} data={score} startAngle={90} endAngle={90 + 360 * data.todayScore}>
+                        <RadialBarChart cx="50%" cy="50%" innerRadius="70%" outerRadius="90%" barSize={8} data={score} startAngle={90} endAngle={90 + 360 * data.todayScore}>
                             {/* Détermine les propriétés de la barre du graphique, le sens dans lequel elle tourne et la valeur a laquelle elle est reliée */}
                             <RadialBar minAngle={15} background clockWise dataKey="value" cornerRadius={50} />
                             <text x={"50%"} y={"40%"} textAnchor="middle" dominantBaseline="middle" className="progress-label">

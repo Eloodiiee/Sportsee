@@ -9,6 +9,13 @@
     -moz-osx-font-smoothing: grayscale;
     background-color: white;
 }
+
+#root {
+    display: grid;
+    grid-template-columns: 8vw 92vw;
+    grid-template-rows: 10vh 90vh;
+}
+
 body {
     margin: 0;
 }
@@ -16,15 +23,14 @@ body {
 header {
     background-color: black;
     display: flex;
-    gap: 5rem;
-    height: 10vh;
-    max-width: 100%;
+    grid-column: 1 / span 2;
 }
+
 header img {
     margin-left: 25px;
     margin-top: 15px;
-    margin-right: 50px;
-    width: 30%;
+    margin-right: 10px;
+    width: 18%;
     object-fit: contain;
     max-width: 1500px;
 }
@@ -36,7 +42,7 @@ header nav {
     width: 100%;
     margin: 0;
     padding: 0;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
 }
 
 header nav a,
@@ -47,27 +53,23 @@ header nav a:visited {
 
 aside {
     display: grid;
-    position: absolute;
     grid-template-rows: 20% 1fr 1fr;
     background-color: #000;
-    width: 8%;
-    height: 90vh;
 }
 
 .sidebar {
     grid-row: 2;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: 1.5em;
     align-items: center;
 }
 
 aside img {
-    width: 25%;
+    width: 35%;
     background-color: #fff;
     border-radius: 5px;
-    padding: 10px;
-    aspect-ratio: 1/1;
+    padding: 15px;
 }
 
 aside p {
@@ -80,43 +82,85 @@ aside p {
     grid-row: 3;
     align-self: end;
     justify-self: center;
-    font-size: 0.8rem;
+    font-size: 0.6rem;
 }
+
 main {
     display: flex;
-    height: 90vh;
-    margin-left: 16%;
+    justify-self: center;
 }
 .mainContainer h1 {
-    font-size: 3em;
+    font-size: 2.5em;
     font-weight: 500;
+    margin-block: 0.5em;
+    margin-block-start: 23px;
 }
 .firstName {
     color: red;
 }
+.userPanel p {
+    margin-block: 0.1em;
+    margin-block-end: 0;
+    font-weight: 500;
+}
 .chartContainer {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: clamp(1.375rem, -7.3393rem + 13.6161vw, 9rem);
+    grid-template-rows: repeat(2, 230px);
+    gap: 1em;
+    margin-top: 4em;
 }
 .userChart {
     display: grid;
-    align-items: center;
-    justify-items: center;
-    width: 258px;
-    height: 263px;
+    width: 200px;
+    height: 200px;
+    justify-self: center;
+    align-self: center;
     border-radius: 5px;
     grid-row: 2;
 }
-#lineChart {
-    background-color: #ff0000;
-    color: white;
+.userChart p {
+    grid-row: 1;
+    grid-column: 1;
+    justify-self: start;
+    margin-left: 15%;
+    margin-block: 0;
+    align-self: center;
+    width: 91%;
+    font-size: 0.9em;
+}
+.bar-marker {
+    border: 1px solid #ffffff;
+    padding: 6px;
+    height: 50px;
+    background-color: #e60000;
+    color: #ffffff;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
 }
 
+.bar-marker p {
+    font-size: 12px;
+}
+
+#lineChart {
+    color: white;
+    background-color: #ff0000;
+    grid-template-rows: 40% 60%;
+}
+#lineChart p {
+    font-size: 15px;
+    opacity: 0.6;
+}
 #lineChart .recharts-cartesian-axis-tick-value {
-    font-size: 0.9em;
-    margin-inline: 5px;
+    fill: #fff;
+    font-size: 12px;
+}
+.lineChart-bar-marker {
+    z-index: 1000;
 }
 
 #radarChart {
@@ -127,8 +171,20 @@ main {
     background-color: #fbfbfb;
     position: relative;
     z-index: -100;
+    display: grid;
 }
-
+#radialBarChart::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 65%;
+    aspect-ratio: 1/1;
+    align-self: center;
+    justify-self: center;
+    border-radius: 500px;
+    background-color: #fff;
+    z-index: -10;
+}
 #radialBarChart p {
     position: absolute;
     top: 7%;
@@ -136,39 +192,40 @@ main {
     margin: 0;
     font-weight: 500;
     fill: #414249;
+    font-size: 15px;
 }
-#radialBarChart::after {
-    content: "";
-    display: block;
-    position: absolute;
-    width: 72%;
-    height: 72%;
-    top: 14.2%;
-    left: 14.2%;
-    border-radius: 500px;
-    background-color: #fff;
-    z-index: -10;
-}
+
 .progress-label {
-    font-size: 1.8em;
+    font-size: 1.5em;
     font-weight: bold;
     fill: #2d3132;
 }
 
 .progress-sub-label {
-    font-size: 17px;
+    font-size: 15px;
     fill: #898da0;
     font-weight: 500;
 }
-
-.userChart p {
-    grid-row: 1;
-    grid-column: 1;
-    justify-self: start;
-    margin-left: 15%;
-    width: 50%;
+.activityChart {
+    background-color: #fbfbfb;
+    border-radius: 6px;
+    grid-column: 1 / span 3;
+    position: relative;
 }
-.chartOverlay {
+.dailyActivity {
+    font-weight: 500;
+    position: absolute;
+    top: 7%;
+    left: 5%;
+    font-size: 19px;
+}
+.recharts-legend-item-text {
+    color: #74798c !important;
+}
+.recharts-cartesian-axis-tick-value {
+    fill: #9b9eab;
+}
+/* .chartOverlay {
     grid-row: 1 / span 2;
     grid-column: 1;
     width: 100%;
@@ -176,8 +233,8 @@ main {
     border-radius: 5px;
     background-color: rgba(255, 0, 0, 0.4);
     pointer-events: none;
-    z-index: 100;
-}
+    z-index: 10;
+} */
 .recharts-responsive-container {
     grid-row: 2;
     grid-column: 1;
@@ -185,24 +242,27 @@ main {
 .userScores {
     grid-column: 4;
     grid-row: 1 / span 2;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    gap: 1em;
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
 }
 .ScoresContainer {
     background-color: #fbfbfb;
     border-radius: 6px;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    height: 124px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    height: 91px;
 }
+
 .iconContainer {
     display: grid;
-    width: 23%;
+    align-self: center;
+    justify-self: center;
+    width: 50%;
     aspect-ratio: 1/1;
     border-radius: 6px;
 }
+
 #Calories {
     background-color: rgba(255, 0, 0, 0.1);
 }
@@ -210,6 +270,7 @@ main {
 #Proteines {
     background-color: rgba(74, 184, 255, 0.1);
 }
+
 #Glucides {
     background-color: rgba(249, 206, 35, 0.1);
 }
@@ -223,20 +284,146 @@ main {
     justify-self: center;
     width: 18px;
 }
+
 .scoresInfos {
     display: flex;
     flex-direction: column;
+    justify-self: center;
+    align-self: center;
 }
 
 .scoresInfos h5,
 .scoresInfos p {
     margin: 0;
+    width: fit-content;
 }
+
 .scoresInfos h5 {
     color: #414249;
-    font-size: 1.4em;
+    font-size: 1.1em;
 }
+
 .scoresInfos p {
     color: #898da0;
     font-weight: 500;
+    font-size: 0.8em;
+}
+
+.userChoice {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.profileContainer {
+    display: flex;
+    justify-content: center;
+    width: 84%;
+}
+.userChoiceContainer {
+    text-align: center;
+    margin-top: 50px;
+    width: 84%;
+}
+
+.userChoiceContainer h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.userLink {
+    display: block;
+    padding: 10px 20px;
+    background-color: #ff0000;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.userLink:hover {
+    background-color: #cc0000;
+}
+
+@media screen and (min-width: 1440px) {
+    main {
+        width: 1140px;
+        display: block;
+    }
+    aside img {
+        width: 30%;
+        padding: 10px;
+    }
+    .chartContainer {
+        gap: 3em;
+        margin-top: 3em;
+        grid-template-rows: repeat(2, 240px);
+    }
+    .activityContainer {
+        height: 100%;
+    }
+
+    .activityChart {
+        height: 275px;
+    }
+
+    .mainContainer h1 {
+        font-size: 3em;
+    }
+    .userPanel p {
+        font-size: 20px;
+    }
+
+    .iconContainer {
+        width: 60%;
+    }
+    .scoresInfos p {
+        font-size: 1em;
+    }
+
+    .activityContainer-recharts-surface {
+        height: auto;
+    }
+
+    .bar-marker p {
+        font-size: 12px;
+    }
+}
+
+@media screen and (min-width: 1920px) {
+    main {
+        width: 1435px;
+    }
+    .chartContainer {
+        grid-template-rows: repeat(2, 320px);
+    }
+
+    .userChart {
+        width: 270px;
+        height: 270px;
+    }
+
+    .iconContainer {
+        width: 60%;
+    }
+
+    .ScoresContainer {
+        height: 134px;
+        grid-template-columns: 35% 65%;
+    }
+
+    .scoresInfos {
+        justify-self: flex-start;
+        margin-left: 20px;
+    }
+    .activityChart {
+        height: 360px;
+    }
+    aside p {
+        font-size: 1em;
+    }
+    #lineChart p {
+        font-size: 19px;
+    }
 }
