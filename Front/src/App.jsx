@@ -15,7 +15,7 @@ function App() {
                 <Route path="/user/:id" element={<Accueil />} />
                 <Route path="/error" element={<PageErreur />} />
                 <Route path="*" element={<PageErreur />} /> {/* Pour gérer les routes non définies */}
-                <Route path="/profile" element={<Profil />} />
+                <Route path="/profile" element={<Profil />} /> {/* Page profil utilisé pour choisir l'utilisateur */}
             </Routes>
         </Router>
     )
