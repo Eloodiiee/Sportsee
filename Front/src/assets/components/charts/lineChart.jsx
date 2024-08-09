@@ -40,6 +40,7 @@ function LineStats({ id }) {
         // interrompt le fetch apres avoir récupéré les données
     }, [id])
 
+    /* Tooltip qui affiche sur le curseur la durée de la session, par rapport aux jours survolés */
     const CustomTooltip = ({ active, payload }) => {
         if (active && payload && payload.length) {
             return (
