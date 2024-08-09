@@ -48,7 +48,7 @@ function BarStats({ id }) {
     // Fonction pour extraire le jour de la date sous forme de chaîne
     const currentDay = (date) => date.split("-")[2]
 
-    // Composant personnalisé pour le tooltip dans le graphique
+    // Composant personnalisé pour le tooltip dans le graphique, comme par exemple l'affichage des calories et kg au survol de la souris sur le graphique
     const CustomTooltip = ({ active, payload }) => {
         if (active && payload && payload.length) {
             return (
@@ -79,26 +79,32 @@ function BarStats({ id }) {
                                 }}
                             >
                                 <CartesianGrid horizontal="true" vertical="" strokeDasharray="3" />
+                                {/* Axe x des jours,tickFormatter permet de réduire "aaaa-mm-jj" uniquement à afficher le jour  */}
                                 <XAxis axisLine={false} tickLine={false} dataKey="day" tickFormatter={currentDay} />
+                                {/* Axe y de gauche pour les calories */}
                                 <YAxis yAxisId="left" axisLine={false} tickLine={false} orientation="left" dataKey="calories" hide={true} />
+                                {/* Axe y de droite pour les Kilos */}
                                 <YAxis yAxisId="right" axisLine={false} tickLine={false} orientation="right" dataKey="kilogram" />
-                                <Tooltip content={CustomTooltip} />
+                                <Tooltip content={CustomTooltip} /> {/* Appel du tooltip */}
+                                {/* Affiche la légende du graphique et montre la couleur des kilos et les kcal */}
                                 <Legend verticalAlign="top" align="right" height={70} iconType="circle" />
+                                {/* Barre des kilos affiché en gris foncé, basé sur l'axe Y de droite */}
                                 <Bar
                                     yAxisId="right"
                                     barSize={7}
                                     radius={[10, 10, 0, 0]}
                                     dataKey="kilogram"
                                     fill="#282D30"
-                                    name="Poids (kg)" // Added custom name for the legend label (Weight in kg)
+                                    name="Poids (kg)" // Ajoute un nom personnalisé pour la légende (Poids en kilos)
                                 />
+                                {/* Barre des kcal affiché en rouge, basé sur l'axe Y de gauche */}
                                 <Bar
                                     yAxisId="left"
                                     barSize={7}
                                     radius={[10, 10, 0, 0]}
                                     dataKey="calories"
                                     fill="#E60000"
-                                    name="Calories brûlées (kCal)" // Added custom name for the legend label (Burned Calories in kCal)
+                                    name="Calories brûlées (kCal)" // Ajoute un nom personnalisé pour la légende  (Calories brulées en kcal)
                                 />
                             </BarChart>
                         </ResponsiveContainer>
