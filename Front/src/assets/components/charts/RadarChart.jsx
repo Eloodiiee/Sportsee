@@ -3,10 +3,9 @@ import PropTypes from "prop-types"
 import { Fragment } from "react"
 import { useState, useEffect } from "react"
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer } from "recharts"
-import MockedService from "../../services/MockedServices"
 
 /** Permet d'afficher un graphique Radar**/
-function RadarStats({ id }) {
+function RadarStats({ response }) {
     const [data, setData] = useState({})
     const [isLoading, setIsLoading] = useState(true)
     const [errorMessage, setErrorMessage] = useState(null)
@@ -14,14 +13,8 @@ function RadarStats({ id }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // Fetch avec lequel je recupere les données liées à l'utilisateur
-                //relié a mon MockedService
-                const service = new MockedService()
-                const response = await service.getData(id.toString(), "performance")
-
                 if (response) {
                     setData(response)
-                    console.log(response)
                     setIsLoading(false)
                 } else {
                     throw new Error("Format de données invalide")
@@ -33,7 +26,7 @@ function RadarStats({ id }) {
         }
 
         fetchData()
-    }, [id])
+    }, [response])
 
     if (errorMessage) {
         return <div>{errorMessage}</div>
@@ -70,7 +63,7 @@ function RadarStats({ id }) {
 }
 
 RadarStats.propTypes = {
-    id: PropTypes.number.isRequired,
+    response: PropTypes.object,
 }
 
 export default RadarStats

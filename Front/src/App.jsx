@@ -11,11 +11,13 @@ function App() {
             <Header />
             <Sidebar />
             <Routes>
-                <Route path="/" element={<Navigate to="/user/7" />} /> {/* Redirige la racine vers /user/7 */}
+                {/*   <Route path="/" element={<Navigate to="/user/7" />} /> */} {/* Redirige la racine vers /user/7 a décommenter pour etre sur le Frontend*/}
+                <Route path="/" element={<Navigate to="/user/12" />} /> {/* Redirige la racine vers /user/12 a decommenter pour etre sur le Backend*/}
                 <Route path="/user/:id" element={<Accueil />} />
                 <Route path="/error" element={<PageErreur />} />
                 <Route path="*" element={<PageErreur />} /> {/* Pour gérer les routes non définies */}
-                <Route path="/profile" element={<Profil />} /> {/* Page profil utilisé pour choisir l'utilisateur */}
+                {/*  Page profil utilisé pour choisir l'utilisateur */}
+                <Route path="/profile" element={<Profil />} />
             </Routes>
         </Router>
     )

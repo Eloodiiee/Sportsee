@@ -2,15 +2,13 @@
 import PropTypes from "prop-types"
 import { Fragment } from "react"
 import { useState, useEffect } from "react"
-import MockedService from "../../services/MockedServices"
-
 import calories from "../../images/calories.png"
 import proteines from "../../images/Proteines.png"
 import glucides from "../../images/Glucides.png"
 import lipides from "../../images/Lipides.png"
 
 /** Permet d'afficher les scores de l'utilisateur tel que ( calories, lipides, proteines...**/
-function ScoresStats({ id }) {
+function ScoresStats({ response }) {
     const [data, setData] = useState({})
     const [isLoading, setIsLoading] = useState(true)
     const [errorMessage, setErrorMessage] = useState(null)
@@ -18,27 +16,20 @@ function ScoresStats({ id }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // Fetch avec lequel je recupere les données liées à l'utilisateur
-                //relié a mon MockedService
-                const service = new MockedService()
-                const response = await service.getData(id.toString(), "")
-
                 if (response) {
                     setData(response)
-                    console.log(response)
                     setIsLoading(false)
                 } else {
                     throw new Error("Invalid data format")
                 }
             } catch (err) {
-                console.log("An error occurred", err)
                 setErrorMessage("Une erreur est survenue lors de la récupération des données.")
                 setIsLoading(false)
             }
         }
 
         fetchData()
-    }, [id])
+    }, [response])
 
     if (errorMessage) {
         return <div>{errorMessage}</div>
@@ -90,7 +81,7 @@ function ScoresStats({ id }) {
 }
 
 ScoresStats.propTypes = {
-    id: PropTypes.number.isRequired,
+    response: PropTypes.object,
 }
 
 export default ScoresStats

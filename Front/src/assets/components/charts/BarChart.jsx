@@ -1,10 +1,9 @@
 import PropTypes from "prop-types"
 import { Fragment, useState, useEffect } from "react"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend, Tooltip, ResponsiveContainer } from "recharts"
-import MockedService from "../../services/MockedServices"
 
 // Composant fonctionnel BarStats qui prend une prop 'id'
-function BarStats({ id }) {
+function BarStats({ response }) {
     // Déclaration des états pour les données, le chargement et les messages d'erreur
     const [data, setData] = useState({})
     const [isLoading, setIsLoading] = useState(true)
@@ -14,23 +13,16 @@ function BarStats({ id }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // Création d'une instance du service pour récupérer les données
-                const service = new MockedService()
-                // Appel de la méthode getData avec l'id passé en prop et le type de données "activity"
-                const response = await service.getData(id.toString(), "activity")
-
                 // Si une réponse est reçue, on met à jour l'état avec les données
                 if (response) {
                     setData(response)
-                    console.log(response)
                     setIsLoading(false) // On indique que le chargement est terminé
                 } else {
                     // Si la réponse est invalide, on lance une erreur
-                    throw new Error("Invalid data format")
+                    throw new Error("Format de données invalide")
                 }
             } catch (err) {
                 // En cas d'erreur, on affiche un message d'erreur et on arrête le chargement
-                console.log("An error occurred", err)
                 setErrorMessage("Une erreur est survenue lors de la récupération des données.")
                 setIsLoading(false)
             }
@@ -38,13 +30,12 @@ function BarStats({ id }) {
 
         // Appel de la fonction fetchData pour lancer la récupération des données
         fetchData()
-    }, [id]) // Le useEffect se déclenche lorsque l'id change
+    }, [response]) // Le useEffect se déclenche lorsque l'id change
 
     // Si un message d'erreur est présent, on le rend dans un div
     if (errorMessage) {
         return <div>{errorMessage}</div>
     }
-    console.log(data)
     // Fonction pour extraire le jour de la date sous forme de chaîne
     const currentDay = (date) => date.split("-")[2]
 
@@ -117,7 +108,7 @@ function BarStats({ id }) {
 
 // Validation des types de props pour s'assurer qu'elles sont passées correctement
 BarStats.propTypes = {
-    id: PropTypes.number.isRequired, // id est requis et doit être un nombre
+    response: PropTypes.object,
     active: PropTypes.bool, // active est optionnel et doit être un booléen
     payload: PropTypes.arrayOf(
         PropTypes.shape({

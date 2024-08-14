@@ -3,10 +3,9 @@ import PropTypes from "prop-types"
 import { RadialBarChart, RadialBar, ResponsiveContainer } from "recharts"
 import { Fragment } from "react"
 import { useState, useEffect } from "react"
-import MockedService from "../../services/MockedServices"
 
 /** Permet d'afficher la barre de progression circulaire du score de l'utilisateur**/
-function RadialBarStats({ id }) {
+function RadialBarStats({ response }) {
     const [data, setData] = useState({})
     const [isLoading, setIsLoading] = useState(true)
     const [errorMessage, setErrorMessage] = useState(null)
@@ -14,27 +13,20 @@ function RadialBarStats({ id }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // Fetch avec lequel je recupere les données liées à l'utilisateur
-                //relié a mon MockedService
-                const service = new MockedService()
-                const response = await service.getData(id.toString(), "")
-
                 if (response) {
                     setData(response)
-                    console.log(response)
                     setIsLoading(false)
                 } else {
-                    throw new Error("Invalid data format")
+                    throw new Error("Format de données invalide")
                 }
             } catch (err) {
-                console.log("An error occurred", err)
                 setErrorMessage("Une erreur est survenue lors de la récupération des données.")
                 setIsLoading(false)
             }
         }
 
         fetchData()
-    }, [id])
+    }, [response])
 
     if (errorMessage) {
         return <div>{errorMessage}</div>
@@ -47,6 +39,7 @@ function RadialBarStats({ id }) {
             fill: "#E60000",
         },
     ]
+
     return (
         <>
             {!isLoading && (
@@ -76,7 +69,7 @@ function RadialBarStats({ id }) {
 }
 
 RadialBarStats.propTypes = {
-    id: PropTypes.number.isRequired,
+    response: PropTypes.object,
 }
 
 export default RadialBarStats

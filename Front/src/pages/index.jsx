@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import MockedService from "../assets/services/MockedServices"
+import Service from "../assets/services/ApiServices"
 import LineStats from "../assets/components/charts/lineChart"
 import RadarStats from "../assets/components/charts/RadarChart"
 import RadialBarStats from "../assets/components/charts/RadialBarChart"
@@ -10,7 +10,10 @@ import BarStats from "../assets/components/charts/BarChart"
 function Accueil() {
     const { id } = useParams()
     const navigate = useNavigate()
-    const [data, setData] = useState(null)
+    const [dataUser, setDataUser] = useState(null)
+    const [dataActivity, setDataActivity] = useState(null)
+    const [dataSession, setDataSession] = useState(null)
+    const [dataPerformance, setDataPerformance] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
     const [errorMessage, setErrorMessage] = useState(null)
 
@@ -19,25 +22,44 @@ function Accueil() {
             setIsLoading(true)
             setErrorMessage(null)
             try {
-                const service = new MockedService()
-                const response = await service.getData(userId.toString(), "default")
-                if (response && response.userInfos) {
-                    setData(response)
-                    console.log(response)
+                const service = new Service()
+                const responseUser = await service.getData(userId, "")
+                const responseActivity = await service.getData(userId, "activity")
+                const responseSession = await service.getData(userId, "average-sessions")
+                const responsePerformance = await service.getData(userId, "performance")
+                if (responseUser && responseUser.userInfos) {
+                    setDataUser(responseUser)
                     setIsLoading(false)
                 } else {
-                    throw new Error("Format de donnée invalide")
+                    throw new Error("Format de donnée invalide pour les données utilisateurs")
+                }
+                if (responseActivity) {
+                    setDataActivity(responseActivity)
+                    setIsLoading(false)
+                } else {
+                    throw new Error("Format de donnée invalide pour les données d'activité")
+                }
+                if (responseSession) {
+                    setDataSession(responseSession)
+                    setIsLoading(false)
+                } else {
+                    throw new Error("Format de donnée invalide pour les données session")
+                }
+                if (responsePerformance) {
+                    setDataPerformance(responsePerformance)
+                    setIsLoading(false)
+                } else {
+                    throw new Error("Format de donnée invalide pour les données performance")
                 }
             } catch (err) {
-                console.log("Une erreur est survenue", err)
                 setErrorMessage("Une erreur est survenue lors de la récupération des données.")
                 setIsLoading(false)
                 navigate("/error")
             }
         }
 
-        if (!isNaN(id)) {
-            fetchData(id || 7) // 7 par défaut si aucun ID n'est fourni
+        if (id && !isNaN(id)) {
+            fetchData(id) // Utilisez l'ID fourni par l'utilisateur
         } else {
             setErrorMessage("ID utilisateur invalide.")
             navigate("/error")
@@ -53,27 +75,27 @@ function Accueil() {
             {!isLoading && (
                 <main>
                     <div className="mainContainer">
-                        {data && data.userInfos && (
+                        {dataUser && dataUser.userInfos && (
                             <div className="userPanel">
                                 <h1>
-                                    Bonjour <span className="firstName">{data.userInfos.firstName}</span>
+                                    Bonjour <span className="firstName">{dataUser.userInfos.firstName}</span>
                                 </h1>
                                 <p>Félicitations ! Vous avez explosé vos objectifs hier 👏</p>
                                 <div className="chartContainer">
                                     <div className="activityChart">
-                                        <BarStats id={data.id} />
+                                        <BarStats response={dataActivity} />
                                     </div>
                                     <div className="userScores">
-                                        <ScoresStats id={data.id} />
+                                        <ScoresStats response={dataUser} />
                                     </div>
                                     <div className="userChart" id="lineChart">
-                                        <LineStats id={data.id} />
+                                        <LineStats response={dataSession} />
                                     </div>
                                     <div className="userChart" id="radarChart">
-                                        <RadarStats id={data.id} />
+                                        <RadarStats response={dataPerformance} />
                                     </div>
                                     <div className="userChart" id="radialBarChart">
-                                        <RadialBarStats id={data.id} />
+                                        <RadialBarStats response={dataUser} />
                                     </div>
                                 </div>
                             </div>

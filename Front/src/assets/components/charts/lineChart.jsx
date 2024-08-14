@@ -3,13 +3,12 @@ import PropTypes from "prop-types"
 import { LineChart, Line, XAxis, Tooltip, ResponsiveContainer } from "recharts"
 import { Fragment } from "react"
 import { useState, useEffect } from "react"
-import MockedService from "../../services/MockedServices"
 
 /** Permet d'afficher les jours du graphique**/
 const days = ["L", "M", "M", "J", "V", "S", "D"]
 
 /** Permet d'afficher un graphique en ligne**/
-function LineStats({ id }) {
+function LineStats({ response }) {
     const [data, setData] = useState({})
     const [isLoading, setIsLoading] = useState(true)
     const [errorMessage, setErrorMessage] = useState(null)
@@ -17,11 +16,6 @@ function LineStats({ id }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // Fetch avec lequel je recupere les données liées à l'utilisateur
-                //relié a mon MockedService
-                const service = new MockedService()
-                const response = await service.getData(id.toString(), "average-sessions")
-
                 if (response && response.sessions) {
                     // convertie day 1,day 2 en L,M,M ...
                     response.sessions.forEach((session, index) => (session.day = days[index]))
@@ -38,7 +32,7 @@ function LineStats({ id }) {
 
         fetchData()
         // interrompt le fetch apres avoir récupéré les données
-    }, [id])
+    }, [response])
 
     /* Tooltip qui affiche sur le curseur la durée de la session, par rapport aux jours survolés */
     const CustomTooltip = ({ active, payload }) => {
@@ -97,7 +91,7 @@ function LineStats({ id }) {
 }
 
 LineStats.propTypes = {
-    id: PropTypes.number.isRequired,
+    response: PropTypes.object,
     active: PropTypes.bool,
     payload: PropTypes.arrayOf(
         PropTypes.shape({

@@ -1,4 +1,4 @@
-import MockedService from "../assets/services/MockedServices"
+import Service from "../assets/services/ApiServices"
 import { Link } from "react-router-dom"
 import { useState, useEffect } from "react"
 
@@ -14,20 +14,19 @@ function Profil() {
         const fetchData = async () => {
             try {
                 // Instanciation du service mocké
-                const service = new MockedService()
+                const service = new Service()
                 // Récupération des données simulées
-                const response = service.dataMap.activity
+
+                const response = service.dataMap.user
 
                 // Vérification de la validité des données récupérées
                 if (response) {
                     setData(response) // Mise à jour de l'état avec les données récupérées
-                    console.log(response) // Log des données dans la console pour débogage
                     setIsLoading(false) // Indication que le chargement est terminé
                 } else {
                     throw new Error("Invalid data format") // Levée d'une exception en cas de données non valides
                 }
             } catch (err) {
-                console.log("An error occurred", err)
                 setErrorMessage("Une erreur est survenue lors de la récupération des données.") // Mise à jour de l'état avec un message d'erreur
                 setIsLoading(false) // Indication que le chargement est terminé malgré l'erreur
             }
@@ -40,6 +39,7 @@ function Profil() {
     if (errorMessage) {
         return <div>{errorMessage}</div>
     }
+
     // Rendu conditionnel : affichage du contenu principal si les données sont chargées
     return (
         <>
@@ -49,11 +49,11 @@ function Profil() {
                         <div className="userChoiceContainer">
                             <h2> Bonjour, vers quel utilisateur voudriez-vous être redirigé ?</h2>
                             <div className="userChoice">
-                                <Link to={"/user/" + data[0].userId} className="userLink">
-                                    Vittorio Toscano
+                                <Link to={"/user/" + data[0].id} className="userLink">
+                                    {data[0].userInfos.firstName} {data[0].userInfos.lastName}
                                 </Link>
-                                <Link to={"/user/" + data[1].userId} className="userLink">
-                                    Mikaela Reid
+                                <Link to={"/user/" + data[1].id} className="userLink">
+                                    {data[1].userInfos.firstName} {data[1].userInfos.lastName}
                                 </Link>
                             </div>
                         </div>
